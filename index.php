@@ -2,7 +2,11 @@
 session_start();
 include('data.php');
 
-$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'register';
+$page = isset($_REQUEST['page']) ? $_REQUEST['page'] : 'home';
+
+if (!isset($_SESSION['current_user']) && $page != 'register') {
+    header('Location: /?page=register');
+}
 
 if($page === 'signup') {
     include($page.'.php');

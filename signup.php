@@ -1,12 +1,17 @@
 <?php
     session_start();
    if (isset($_POST['inscription'])) {
-       $_SESSION = $_POST['inscription'];
+       $usr = $_POST['inscription'];
        if (isset($_FILES['image'])) {
            $img = __DIR__ . '/img/';
            move_uploaded_file($_FILES['image']['tmp_name'], $img . '/'. $_FILES['image']['name']);
-           $_SESSION['image'] = $_FILES['image']['name'];
+           $usr['image'] = $_FILES['image']['name'];
        }
+
+       $usrId = count($_SESION['data']['users']) + 1;
+       $usr['id'] = $usrId;
+       $_SESSION['current_user'] = $usr;
+       $_SESION['data']['users'][$usrId] = $usr;
        header('Location: /?page=home');
    }
     exit;
