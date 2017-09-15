@@ -8,10 +8,10 @@
            $usr['image'] = $_FILES['image']['name'];
        }
 
-       $usrId = count($_SESION['data']['users']) + 1;
+       $usrId = count($_SESSION['data']['users']) + 1;
        $usr['id'] = $usrId;
        $_SESSION['current_user'] = $usr;
-       $_SESION['data']['users'][$usrId] = $usr;
+       $_SESSION['data']['users'][$usrId] = $usr;
        header('Location: /?page=home');
    }
     exit;
