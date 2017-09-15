@@ -1,7 +1,7 @@
 <h1>Pro'ximité</h1>
 
 <div id="events-container" style="border: 1px solid #e3e3e3;">
-    <?php foreach ($events as $event) : ?>
+    <?php foreach ($_SESSION['data']['events'] as $key => $event) : ?>
         <div class="row">
             <div class="col-xs-12" style="border-bottom: 1px solid #e3e3e3; padding: 0;">
                 <div class="col-xs-12">
@@ -45,7 +45,7 @@
             <br>
             <div class="col-xs-12">
                 <div class="col-xs-12">
-                    <p><b>4 participants</b></p>
+                    <p><b> <?php echo count($event['participants']); ?> participants</b></p>
                     <?php for($i=0; $i< 4 ; $i++){?>
                         <img src="<?php echo 'img/'.$event['avatar_owner']; ?>" width="50" height="50" >
                     <?php }?>
@@ -62,10 +62,28 @@
         <br>
         <div class="col-xs-12">
             <div class="col-xs-12">
-                <button type="button" class="btn btn-default" style="width: 100%; background-color:#309ab5; border-radius:2px; border: none; color:#FFFFFF; font-family: 'Raleway'">
-                    Rejoindre l'évènement
-                </button>
+                <button type="button" data-in="<?php echo in_array($_SESSION['current_user']['id'], $_SESSION['data']['events'][$key]['participants']) ? 1 : 0;?>" data-creator="<?php echo $_SESSION['current_user']['id']; ?>" data-event-id="<?php echo $key; ?>" class="participate btn btn-default" style="width: 100%; background-color:#309ab5; border-radius:2px; border: none; color:#FFFFFF; font-family: 'Raleway'"><?php echo in_array($_SESSION['current_user']['id'], $_SESSION['data']['events'][$key]['participants']) ? 'Quittez' : "                    Rejoindre l'évènement
+";?></button>
             </div
         </div>
     <?php endforeach; ?>
 </div>
+
+<script type="application/javascript">
+    $(document).ready(function () {
+        $button = $('.participate');
+        $button.on('click', function (event) {
+            event.preventDefault();
+            var id = $button.data('event-id');
+            var creator = $button.data('creator');
+            var inEvent = $button.data('in');
+            $.ajax({
+                url: 'participate.php?creator=' + creator + '&event=' + id + '&in=' + inEvent,
+                type: 'GET',
+                success: function (data) {
+                document.location.reload();
+            }
+            })
+        })
+    })
+</script>
