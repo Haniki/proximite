@@ -73,10 +73,11 @@
     $(document).ready(function () {
         $button = $('.participate');
         $button.on('click', function (event) {
+            var $that = $(this);
             event.preventDefault();
-            var id = $button.data('event-id');
-            var creator = $button.data('creator');
-            var inEvent = $button.data('in');
+            var id = $that.data('event-id');
+            var creator = $that.data('creator');
+            var inEvent = $that.data('in');
             $.ajax({
                 url: 'participate.php?creator=' + creator + '&event=' + id + '&in=' + inEvent,
                 type: 'GET',
