@@ -5,7 +5,7 @@
        if (isset($_FILES['image'])) {
            $img = __DIR__ . '/img/';
            move_uploaded_file($_FILES['image']['tmp_name'], $img . '/'. $_FILES['image']['name']);
-           $usr['image'] = $_FILES['image']['name'];
+           $usr['avatar'] = 'img/' . $_FILES['image']['name'];
        }
 
        $usrId = count($_SESSION['data']['users']) + 1;
