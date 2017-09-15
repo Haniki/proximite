@@ -5,7 +5,7 @@
             <label for="prenom"></label>
             <input type="text" class="form-control" id="prenom" placeholder="Prénom" name="inscription[prenom]">
         </div>
-        <div class="form-group" style="margin-left:5%;">
+        <div class="form-group">
             <label for="nom"></label>
             <input type="text" class="form-control" id="nom" placeholder="Nom" name="inscription[nom]">
         </div>
